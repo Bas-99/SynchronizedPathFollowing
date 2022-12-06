@@ -19,24 +19,54 @@ The paper in file "X" contains an elaborate discussion of the underlying theory,
 The code uses two different dynamical systems to test the algorithms: A differential drive robot and a two box system.
 
 The differential drive robot is represented by the following kinematic equation:
-$
-\begin{split}
-    \begin{bmatrix}
-    \dot{x}_{i,1} \\ \dot{x}_{i,2} \\ \dot{x}_{i,3}
-    \end{bmatrix}
-    &=
-    \begin{bmatrix}
-    u_{i,1}\cos(x_{i,3}) \\ u_{i,1}\sin(x_{i,3}) \\ u_{i,2}
-    \end{bmatrix} = f(x_i,u_i), \\
-    \begin{bmatrix}
-    y_{i,1} \\ y_{i,2}
-    \end{bmatrix}
-    &=
-    \begin{bmatrix}
-    x_{i,1}+ l\cos(x_{i,3}) \\
-    x_{i,2} + l\sin(x_{i,3})
-    \end{bmatrix} = g(x_i), \ l \neq 0,
-\end{split}\label{eqn:example_system}
-$
+$$ \begin{bmatrix}
+\dot{x}_{i,1} \\ 
+\dot{x}_{i,2} \\ 
+\dot{x}_{i,3}
+\end{bmatrix}
+=
+\begin{bmatrix}
+u_{i,1}\cos(x_{i,3}) \\ 
+u_{i,1}\sin(x_{i,3}) \\ 
+u_{i,2}
+\end{bmatrix} = f(x_i,u_i), $$
 
+$$ \begin{bmatrix}
+y_{i,1} \\ 
+y_{i,2}
+\end{bmatrix}
+=
+\begin{bmatrix}
+x_{i,1}+ l\cos(x_{i,3}) \\
+x_{i,2} + l\sin(x_{i,3})
+\end{bmatrix} = g(x_i), \ l \neq 0, $$
+
+with the visual representation given by:
+![differential_drive_robot](../images/differential_drive_robot.png)
+
+The two box system is represented by:
+$$ M\Ddot{y} &= D(\dot{y} - \dot{z}) + u, \\
+m\Ddot{z} &= D(\dot{z} - \dot{y}) + G(z - y), $$
+
+And is converted to a state space model, using the state: $x = [z_1,\dot{z}_1,z_2,\dot{z}_2,y_1,\dot{y}_1,y_2,\dot{y}_2]$, which gives the following matrices:
+$$ A_p &=  \begin{bmatrix}
+        0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \frac{g_1}{m} & -\frac{d_1}{m} & 0 & 0 & -\frac{g_1}{m} & \frac{d_1}{m} & 0 & 0 \\
+        0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+        0 & 0 & \frac{g_2}{m} & -\frac{d_2}{m} & 0 & 0 & -\frac{g_2}{m} & \frac{d_2}{m} \\
+        0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+        0 & \frac{d_1}{M} & 0 & 0 & 0 & -\frac{d_1}{M} & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+        0 & 0 & 0 & \frac{d_2}{M} & 0 & 0 & 0 & -\frac{d_2}{M} \\
+        \end{bmatrix}, $$
+$$ B_p &= \begin{bmatrix}
+        0 & 0 \\ 0 & 0 \\ 0 & 0 \\ 0 & 0 \\ 0 & 0 \\ \frac{1}{M} & 0 \\ 0 & 0 \\ 0 & \frac{1}{M}
+        \end{bmatrix}, $$
+$$ C_p &= \begin{bmatrix}
+        0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 1 & 0
+        \end{bmatrix} $$
+
+A visual representation of the two box system is given by:
+![two_box_system](../images/two_box_system.png)
 
