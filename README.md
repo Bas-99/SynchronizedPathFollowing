@@ -42,7 +42,7 @@ x_{i,2} + l\sin(x_{i,3})
 \end{bmatrix} = g(x_i), \ l \neq 0, $$
 
 with the visual representation given by:
-![differential_drive_robot](../images/differential_drive_robot.png)
+![differential_drive_robot](../differential_drive_robot.png)
 
 The two box system is represented by:
 $$ M\Ddot{y} &= D(\dot{y} - \dot{z}) + u, \\
@@ -68,5 +68,5 @@ $$ C_p &= \begin{bmatrix}
         \end{bmatrix} $$
 
 A visual representation of the two box system is given by:
-![two_box_system](../images/two_box_system.png)
+![two_box_system](../two_box_system.png)
 
